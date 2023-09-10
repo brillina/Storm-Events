@@ -8,8 +8,8 @@
 | TeamName    | The Error Annihilators |
 | Captain     |    Leena Abdelrahman   |
 | Captain     |  labde2@illinois.edu   |
-| Member1     |        Kevin Pei       |
-| Member1     |   kevin2@illinois.edu  |
+| Member1     |      Brillina Wang     |
+| Member1     |    bw38@illinois.edu   |
 | Member2     |    Bharati Kulkarni    |
 | Member2     |  bharati1@illinois.edu |
 
