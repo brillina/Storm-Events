@@ -1,4 +1,4 @@
-# team097-sample
+# team097
 
 ## Basic Information
 
@@ -6,8 +6,8 @@
 | ----------- | ---------------------- |
 | TeamID      |        Team-097        |
 | TeamName    | The Error Annihilators |
-| Captain     |       Abdu Alawini     |
-| Captain     |  alawini@illinois.edu  |
+| Captain     |    Leena Abdelrahman   |
+| Captain     |  labde2@illinois.edu   |
 | Member1     |        Kevin Pei       |
 | Member1     |   kevin2@illinois.edu  |
 | Member2     |    Bharati Kulkarni    |
