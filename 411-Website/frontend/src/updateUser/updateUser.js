@@ -93,13 +93,13 @@ const UpdateUser = () => {
     };
 
     return (
-        <div className="login-container"> {/* Use the same container for styling consistency */}
+        <div className="login-container"> {}
 
             
-            <form className="login-form"> {/* Use the same form class for styling consistency */}
+            <form className="login-form"> {}
             {error && <div className="error-message">{error}</div>}
             {success && <div className="success-message">{success}</div>}
-            <h2 className="login-title">Update/Delete User</h2> {/* Use the same title class for styling consistency */}
+            <h2 className="login-title">Update/Delete User</h2> {}
             
 
                 <div className="input-container">
@@ -143,7 +143,7 @@ const UpdateUser = () => {
                         )}
                     </div>
                 )}
-                            <Link to="/" className="return-home-button">Go Back to Home</Link> {/* Use the same button class for styling consistency */}
+                            <Link to="/" className="return-home-button">Go Back to Home</Link> {}
 
             </form>
         </div>
