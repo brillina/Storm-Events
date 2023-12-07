@@ -1,71 +1,40 @@
 -- Active: 1701897268072@@34.41.207.129@3306@cs411
-CREATE PROCEDURE `weather_status`(
-  IN p_category_name VARCHAR(255),
-  IN p_attribute VARCHAR(255),
-  IN p_order_direction VARCHAR(4)
-)
+DROP PROCEDURE weather_status;
+CREATE DEFINER=`root`@`%` PROCEDURE `weather_status`()
 BEGIN
   DECLARE done INT DEFAULT FALSE;
-  DECLARE stat_value DECIMAL;
-  DECLARE median_value DECIMAL;
-  DECLARE mode_value DECIMAL;
-  DECLARE stat_cursor CURSOR FOR
-    SELECT
-      CASE
-        WHEN p_attribute = 'deaths' THEN deathsDirect + deathsIndirect
-        WHEN p_attribute = 'injuries' THEN injuriesDirect + injuriesIndirect
-        WHEN p_attribute = 'property_damage' THEN IFNULL(CAST(damageProperty AS DECIMAL), 0)
-        WHEN p_attribute = 'crop_damage' THEN IFNULL(CAST(damageCrops AS DECIMAL), 0)
-        ELSE 0
-      END AS value_stat
-    FROM WeatherEvent we
-    INNER JOIN Category c ON we.category_id = c.Category_id
-    WHERE c.category_name = p_category_name;
-  DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
-  CREATE TEMPORARY TABLE tempStats (
-    Value DECIMAL
-  );
-
-  OPEN stat_cursor;
-  stat_loop: LOOP
-    FETCH stat_cursor INTO stat_value;
+  DECLARE cur_wind_speed INT;
+  DECLARE cur_tornado_size DECIMAL(10,2);
+  DECLARE total_wind_speed INT DEFAULT 0;
+  DECLARE total_tornado_size DECIMAL(10,2) DEFAULT 0.00;
+  DECLARE count_events INT DEFAULT 0;
+  DECLARE avg_wind_speed DECIMAL(10,2);
+  DECLARE avg_tornado_size DECIMAL(10,2);
+  DECLARE sum_all_attributes DECIMAL(10,2) DEFAULT 0.00;
+  DECLARE tornado_cursor CURSOR FOR 
+    SELECT wind_speed, tornado_size
+    FROM Tornado;
+  DECLARE CONTINUE HANDLER FOR NOT FOUND SET done := TRUE;
+  OPEN tornado_cursor;
+  tornado_loop: LOOP
+    FETCH tornado_cursor INTO cur_wind_speed, cur_tornado_size;
     IF done THEN
-      LEAVE stat_loop;
+      LEAVE tornado_loop;
     END IF;
-    INSERT INTO tempStats (Value) VALUES (stat_value);
+    SET total_wind_speed = total_wind_speed + cur_wind_speed;
+    SET total_tornado_size = total_tornado_size + cur_tornado_size;
+    SET count_events = count_events + 1;
+    SET sum_all_attributes = sum_all_attributes + cur_wind_speed + cur_tornado_size;
   END LOOP;
-  CLOSE stat_cursor;
-
-  -- Calculate Median
-  SET @rowindex := -1;
-  SELECT
-    AVG(d.value)
-  INTO median_value
-  FROM (
-    SELECT @rowindex:=@rowindex + 1 AS 'rowindex', tempStats.value AS 'value'
-    FROM tempStats
-    ORDER BY tempStats.value
-  ) AS d
-  WHERE 
-    d.rowindex IN (FLOOR(@rowindex / 2), CEIL(@rowindex / 2));
-
-  -- Calculate Mode
-  SELECT Value INTO mode_value FROM (
-    SELECT Value, COUNT(*) AS freq
-    FROM tempStats
-    GROUP BY Value
-    ORDER BY freq DESC, Value DESC
-    LIMIT 1
-  ) AS subquery;
-
-  -- Return Results
-  SELECT 'Average' AS Statistic, AVG(Value) AS Value FROM tempStats;
-  SELECT 'Mean' AS Statistic, AVG(Value) AS Value FROM tempStats;
-  SELECT 'Median' AS Statistic, median_value AS Value;
-  SELECT 'Mode' AS Statistic, mode_value AS Value;
-
-  -- Optional: To view all the values in tempStats
-  -- SELECT * FROM tempStats ORDER BY Value;
-
-  DROP TEMPORARY TABLE IF EXISTS tempStats;
-END;
+  CLOSE tornado_cursor;
+  IF count_events > 0 THEN
+    SET avg_wind_speed = total_wind_speed / count_events;
+    SET avg_tornado_size = total_tornado_size / count_events;
+  ELSE
+    SET avg_wind_speed = 0;
+    SET avg_tornado_size = 0;
+  END IF;
+  SELECT 'Average Wind Speed' AS Statistic, avg_wind_speed AS Value;
+  SELECT 'Average Tornado Size' AS Statistic, avg_tornado_size AS Value;
+  SELECT 'Sum of All Attributes' AS Statistic, sum_all_attributes AS Value;
+END
