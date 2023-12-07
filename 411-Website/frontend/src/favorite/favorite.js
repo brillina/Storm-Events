@@ -5,21 +5,19 @@ function Favorites() {
     const [favorites, setFavorites] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [events, setEvents] = useState([]); // All events
+    const [events, setEvents] = useState([]); 
 
-    // Dummy user ID - replace with actual user ID
     console.log(localStorage.getItem('userId'));
     const userIdString = localStorage.getItem('userId');
 
     const userId = parseInt(userIdString, 10); 
 
-    // Define Event_id
     const [Event_id, setEventId] = useState(null);
 
     const fetchEvents = async () => {
         try {
             const response = await fetch(`http://localhost:3000/api/weather-events-by-month/01`, {
-                method: 'GET', // Specify the HTTP method as GET
+                method: 'GET', 
             });
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
@@ -32,12 +30,11 @@ function Favorites() {
         }
     };
 
-    // Function to fetch favorite events
     const fetchFavorites = async () => {
         setIsLoading(true);
         try {
             const response = await fetch(`http://localhost:3000/api/users/${userId}/favorites`, {
-                method: 'GET', // Specify the HTTP method as GET
+                method: 'GET', 
             });
             if (!response.ok) {
                 return (
@@ -74,7 +71,6 @@ function Favorites() {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
 
-            // Update favorites list after adding
             fetchFavorites();
         } catch (error) {
             console.error('Failed to add to favorites:', error);
@@ -82,7 +78,7 @@ function Favorites() {
     };
 
     useEffect(() => {
-        fetchFavorites(); // Call the fetchFavorites function
+        fetchFavorites(); 
         fetchEvents();
     }, [userId]);
 
