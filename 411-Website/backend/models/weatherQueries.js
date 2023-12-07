@@ -1,4 +1,4 @@
-const db = require('../db'); // Ensure this is the promise-based pool
+const db = require('../db'); 
 
 const weatherQueryController = {
   countHighDeathTollTornadoes: async (req, res) => {
