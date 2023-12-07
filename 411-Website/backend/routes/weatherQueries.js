@@ -14,7 +14,6 @@ router.get('/death-toll-tornadoes', async (req, res, next) => {
   }
 });
 
-// Hailstone sizes for specific death toll ranges
 router.get('/hailstone-sizes', async (req, res, next) => {
   try {
     await weatherQueryController.hailstoneSizesForDeathToll(req, res);
@@ -23,16 +22,13 @@ router.get('/hailstone-sizes', async (req, res, next) => {
   }
 });
 
-// Error handling middleware
 router.use((err, req, res, next) => {
-  console.error(err); // Log the error for server-side debugging
+  console.error(err); 
   res.status(500).json({ message: 'An internal error occurred' });
 });
 
-// Endpoint to fetch hail event details
 router.get('/hail/:eventId', async (req, res, next) => {
   try {
-      // SQL query to join WeatherEvent, Category, and Hail tables
       const query = `
           SELECT 
               WeatherEvent.*, 
@@ -50,7 +46,6 @@ router.get('/hail/:eventId', async (req, res, next) => {
               WeatherEvent.event_id = ?;
       `;
 
-      // Execute the query with the provided eventId
       const [results] = await db.query(query, [req.params.eventId]);
       if (results.length === 0) {
         res.status(404).json({ error: 'No weather events found for this month' });
@@ -62,10 +57,8 @@ router.get('/hail/:eventId', async (req, res, next) => {
   }
 });
 
-// Endpoint to fetch blizzard event details
 router.get('/blizzard/:eventId', async (req, res, next) => {
   try {
-      // SQL query to join WeatherEvent, Category, and Blizzard tables
       const query = `
           SELECT 
               WeatherEvent.*, 
@@ -98,7 +91,6 @@ router.get('/blizzard/:eventId', async (req, res, next) => {
 // Endpoint to fetch tornado event details
 router.get('/tornado/:eventId', async (req, res, next) => {
   try {
-      // SQL query to join WeatherEvent, Category, and Tornado tables
       const query = `
           SELECT 
               WeatherEvent.*, 
@@ -132,7 +124,6 @@ router.get('/tornado/:eventId', async (req, res, next) => {
 // Endpoint to fetch category details based on event ID
 router.get('/category/:eventId', async (req, res, next) => {
   try {
-      // SQL query to join WeatherEvent and Category tables
       const query = `
           SELECT 
               WeatherEvent.event_ id,
@@ -146,7 +137,6 @@ router.get('/category/:eventId', async (req, res, next) => {
               WeatherEvent.event_id = ?;
       `;
 
-      // Execute the query with the provided eventId
       const [results] = await db.query(query, [req.params.eventId]);
       if (results.length === 0) {
         res.status(404).json({ error: 'No category found for this event ID' });
