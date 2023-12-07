@@ -3,7 +3,7 @@
     flex-wrap: wrap;
     gap: 20px;
     overflow-y: auto;
-    max-height: 500px; /* Add a maximum height for scrolling */
+    max-height: 500px; 
 }
 
 .weather-event {
