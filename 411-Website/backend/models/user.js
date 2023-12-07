@@ -74,8 +74,8 @@ const userController = {
     }
   },
   addFavoriteEvent: async (req, res) => {
-    const User_id = req.params.id;  // Get User_id from the route parameter
-    const { event_id } = req.body;  // Get event_id from the request body
+    const User_id = req.params.id; 
+    const { event_id } = req.body;  
     console.log("eventid?? ", event_id);
 
     const query = 'INSERT INTO UserFavoriteEvents (User_id, event_id) VALUES (?, ?)';
