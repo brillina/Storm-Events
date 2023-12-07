@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'; // Import Routes and Route
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'; 
 import Login from './login/login.js';
 import Register from './register/register.js';
 import { fetchWeatherByMonth } from './client.js';
 import Modal from 'react-modal';
-import UpdateUser from './updateUser/updateUser.js'; // Import the new component
+import UpdateUser from './updateUser/updateUser.js'; 
 import Funfacts from './funfacts/funfacts.js'
 import Favorites from './favorite/favorite.js'
 import './App.css';
@@ -59,7 +59,6 @@ function App() {
       }, [setSelectedType]); 
     
     
-    // Function to fetch event details
     const fetchEventDetails = async (eventId, selectedType) => {
         console.log("eventid and type ", selectedType, " ", eventId);
         let url = '';
@@ -73,7 +72,6 @@ function App() {
             case 'Hail':
                 url = `http://localhost:3000/api/weather/hail/:${eventId}`;
                 break;
-            // Add more cases as needed for different event types
         }
     
         try {
@@ -103,10 +101,9 @@ function App() {
         }
     };
 
-    // Update the handleEventClick function
     const handleEventClick = async (event) => {
         const eventDetails = await fetchEventDetails(event.event_id, event.type);
-        const categoryName = await fetchCategoryDetails(event.category_id); // Pass category_id
+        const categoryName = await fetchCategoryDetails(event.category_id); 
         setSelectedEvent({ ...eventDetails, category_name: categoryName });
         setIsModalOpen(true);
       };
@@ -130,7 +127,7 @@ function App() {
 
         // Sorting logic
         filtered.sort((a, b) => {
-            let dateA = new Date(a.eventBeginTime); // Assuming 'date' is the attribute for event date
+            let dateA = new Date(a.eventBeginTime); 
             let dateB = new Date(b.eventBeginTime);
             return sortOrder === 'Newest to Oldest' ? dateA - dateB : dateB - dateA;
         });
@@ -143,9 +140,9 @@ function App() {
           <Routes>
               <Route path="/login" element={<Login/>} />
               <Route path="/register" element={<Register />} />
-              <Route path="/update-user" element={<UpdateUser />} /> {/* New Route for updating user */}
-              <Route path="/funfacts" element={<Funfacts />} /> {/* New Route for updating user */}
-              <Route path="/Favorites" element={<Favorites />} /> {/* New Route for updating user */}
+              <Route path="/update-user" element={<UpdateUser />} /> {}
+              <Route path="/funfacts" element={<Funfacts />} /> {}
+              <Route path="/Favorites" element={<Favorites />} /> {}
 
 
               <Route path="/" element={
@@ -156,7 +153,7 @@ function App() {
 </div>
 
                       <div>
-                          {/* Navigation Links (Optional) */}
+                          {}
                           <Link to="/login" className="nav-link">Login</Link>
                           <Link to="/register" className="nav-link">Register</Link>
                           <Link to="/update-user" className="nav-link">Update User</Link>
@@ -183,7 +180,7 @@ function App() {
 
                           ))}
                       </div>
-                      {/* Modal rendering */}
+                      {}
                       {isModalOpen && (
                         <Modal 
                         isOpen={isModalOpen}
@@ -194,16 +191,12 @@ function App() {
                         <div>
                             <h2>Event Details</h2>
                             <div>Category Name: {selectedEvent?.category_name}</div>
-                            {/* <div>Category: {selectedEvent?.user_id}</div> */}
-                            {/* Render other general details of selectedEvent */}
-                            {/* Render specific details based on event type */}
                              </div>
                             {comparedEvent && (
                                 <div>
                                     <h2>Compared Event Details</h2>
                                     <div>Category: {comparedEvent?.category_id}</div>
-                                    
-                                    {/* Render other details of comparedEvent */}
+                                    {}
                                 </div>
                             )}
                         </div>
