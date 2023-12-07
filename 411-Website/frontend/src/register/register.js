@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom'; // Import useNavigate for redirection
+import { useNavigate, Link } from 'react-router-dom'; // useNavigate for redirection
 import '../login/login.css'
 const Register = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [error, setError] = useState(''); // State to handle error message
-    const navigate = useNavigate(); // Hook for navigation
+    const [error, setError] = useState('');
+    const navigate = useNavigate();
 
     const handleSubmit = async (event) => {
         console.log(username);
@@ -25,19 +25,17 @@ const Register = () => {
             if (!response.ok) {
                 throw new Error(`Registration failed: ${response.status}`);
             }
-
-            // Assuming successful registration, redirect to login page or home page
             navigate('/login'); // Redirect to login page after successful registration
         } catch (error) {
             console.error('Registration error:', error);
-            setError('Username taken. Please choose another username.'); // Set error message
+            setError('Username taken. Please choose another username.'); 
         }
     };
 
     return (
-        <div className="login-container"> {/* Use the same container for consistency */}
+        <div className="login-container"> {}
             <form className="login-form" onSubmit={handleSubmit}>
-                <h2 className="login-title">Register</h2> {/* Use the same title class for consistency */}
+                <h2 className="login-title">Register</h2> {}
                 {error && <div className="error-message">{error}</div>}
                 <div className="input-container">
                     <input
@@ -55,7 +53,7 @@ const Register = () => {
                         className="password-input"
                     />
                 </div>
-                <button type="submit" className="login-button">Register</button> {/* Use the same button class for consistency */}
+                <button type="submit" className="login-button">Register</button> {}
                 <Link to="/" className="return-home-button">Return Home</Link>
             </form>
         </div>
