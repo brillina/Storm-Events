@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate for 
+import { useNavigate } from 'react-router-dom'; 
 import './login.css'
 import { Link } from 'react-router-dom';
 
@@ -7,8 +7,8 @@ import { Link } from 'react-router-dom';
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [error, setError] = useState(''); // State to handle error message
-    const navigate = useNavigate(); // Hook for navigation
+    const [error, setError] = useState(''); 
+    const navigate = useNavigate(); 
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -27,9 +27,8 @@ const Login = () => {
                 throw new Error(`Login failed: ${response.status}`);
             }
     
-            // Assuming the response from the server contains the user ID in JSON format
             const userData = await response.json();
-            const userId = userData.user.User_id; // Replace 'userId' with the actual key used in the response
+            const userId = userData.user.User_id; 
             console.log(userData);
             // Save the user ID to localStorage
             localStorage.setItem('userId', userId);
@@ -37,17 +36,17 @@ const Login = () => {
             navigate('/'); 
         } catch (error) {
             console.error('Login error:', error);
-            setError('Failed to login. Please check your credentials.'); // Set error message
+            setError('Failed to login. Please check your credentials.'); 
         }
     };
     
 
     return (
         <div className="login-container">
-            <form className="login-form" onSubmit={handleSubmit}> {/* Added class */}
-                <h2 className="login-title">Login</h2> {/* Added class */}
+            <form className="login-form" onSubmit={handleSubmit}> {}
+                <h2 className="login-title">Login</h2> {}
                 {error && <div className="error-message">{error}</div>}
-                <div className="input-container"> {/* Added container for inputs */}
+                <div className="input-container"> {}
                     <input
                         type="text"
                         value={username}
@@ -63,7 +62,7 @@ const Login = () => {
                         className="password-input" // Added class
                     />
                 </div>
-                <button type="submit" className="login-button">Login</button> {/* Added class */}
+                <button type="submit" className="login-button">Login</button> {}
                 <Link to="/" className="return-home-button">Return Home</Link>
             </form>
         </div>
