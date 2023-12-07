@@ -1,14 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../db'); // Import your database connection or pool
-
+const db = require('../db'); 
 const weatherEventController = require('../models/weatherEventController.js');
 
 //works
-// Route to get weather events by month
 router.get('/:month', async (req, res) => {
     try {
-      // Assuming month is provided in 'MM' format (e.g., '03' for March)
       const month = req.params.month;
       const query = 'SELECT * FROM WeatherEvent WHERE MONTH(eventBeginTime) = ?';
       const [results] = await db.query(query, [month]);
