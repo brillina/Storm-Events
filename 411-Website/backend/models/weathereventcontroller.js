@@ -1,16 +1,14 @@
-const db = require('../db'); // Import your database connection or pool
+const db = require('../db');
 
 const weatherEventModel = {
   getWeatherEventsByMonth: async (req, res) => {
     try {
-      const { month } = req.params; // Extract month from URL params
+      const { month } = req.params;
 
-      // Check if the month parameter is in the correct format
       if (!/^\d{2}$/.test(month)) {
         throw new Error('Invalid month format. Please provide a two-digit month (e.g., "01" for January).');
       }
 
-      // Your SQL query to retrieve weather events for a specific month
       const query = `
         SELECT *
         FROM WeatherEvent
@@ -18,9 +16,9 @@ const weatherEventModel = {
       `;
 
       const [results] = await db.query(query, [month]);
-      res.json(results); // Send the results as JSON response
+      res.json(results);
     } catch (error) {
-      res.status(400).json({ error: error.message }); // Handle errors and send an error response
+      res.status(400).json({ error: error.message }); 
     }
   },
 };
