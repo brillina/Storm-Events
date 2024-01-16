@@ -4,23 +4,19 @@
 
 |   Info      |        Description     |
 | ----------- | ---------------------- |
-| TeamID      |        Team-097        |
-| TeamName    | The Error Annihilators |
-| Captain     |    Leena Abdelrahman   |
-| Captain     |  labde2@illinois.edu   |
-| Member1     |      Brillina Wang     |
-| Member1     |    bw38@illinois.edu   |
-| Member2     |      Keli Akabutu      |
-| Member2     |  akabutu2@illinois.edu |
+| Member1     |    Leena Abdelrahman   |
+| Member1     |  labde2@illinois.edu   |
+| Member2     |      Brillina Wang     |
+| Member2     |    bw38@illinois.edu   |
+| Member3     |      Keli Akabutu      |
+| Member3     |  akabutu2@illinois.edu |
 
 
 ## Project Information
 
 |   Info      |        Description     |
 | ----------- | ---------------------- |
-|  Title      |       Storm Watch      |
-| System URL  |      https://cs411-project-400321.ue.r.appspot.com/    |
-| Video Link  |      link_to_video     |
+|  Title      |       Storm Events     |
 
 ## Project Summary
 
