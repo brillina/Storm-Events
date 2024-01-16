@@ -18,8 +18,8 @@
 | ----------- | ---------------------- |
 |  Title      |       Storm Events     |
 
-## Project Summary
 
+## Project Summary
 
 Our website is a place for accessing comprehensive information on significant storms that have occurred across the United States over the past decade. Powered by the Storm Events Database from NOAA's National Center for Environmental Information (NCEI), our website will offer a user-friendly interface designed to make the wealth of storm data easily accessible to users. 
 
